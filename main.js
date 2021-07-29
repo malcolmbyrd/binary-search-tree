@@ -88,7 +88,7 @@ class BinarySearchTree
         {
             node.right = this.removeNode(node.right, key);
         }
-        // If data matches the root's data, then elete this node
+        // If data matches the root's data, then delete this node
         else
         {
             // deleting a node with no children
@@ -120,10 +120,98 @@ class BinarySearchTree
         }
     }
 
-    // findMinNode(){}
-    // getRootNode(){}
-    // inorder(node){}
-    // preorder(node){}
-    // postorder(node){}
-    // search(node, data){}
+    // Finds the minimum node in the tree, starting from a given node
+    findMinNode(node)
+    {
+        // if there is a null spot to the left of the given node, then this node is the minimum node
+        if (node.left === null)
+        {
+            return node;
+        }
+        else
+        {
+            return this.findMinNode(node.left);
+        }
+    }
+
+    // Returns the root of the tree
+    getRootNode()
+    {
+        return this.root;
+    }
+
+
+    // Traverse the tree in order, i.e. perform inorder traversal of left subtree, and then right subtree
+    inorder(node)
+    {
+        if (node !==  null) {
+            this.inorder(node.left);
+            console.log(node.data);
+            this.inorder(node.right);
+        }
+    }
+
+    // Performs pre-order traversal of a tree starting from the given node
+    preorder(node){
+        if (node !== null) {
+            console.log(node.data)
+            this.preorder(node.left);
+            this.preorder(node.right);
+        }
+    }
+
+    // Performs post-order traversal of a tree starting from a given node
+    postorder(node){
+        if (node !== null) {
+            this.postorder(node.left)
+            this.postorder(node.right)
+            console.log(node.data)
+        }
+    }
+    search(node, data){
+        if (node === null) {
+            return null
+        }
+
+        // if data is less than node's data, move left
+        if (data < node.data) {
+            return this.search(node.left, data)
+        }
+        // if data is more than node's data, move right
+        if (data > node.data) {
+            return this.search(node.right, data)
+        }
+        else {
+            return node // if Node is equal to data return it, we have found it
+        }
+    }
+}
+
+function runBST() {
+    // Create a tree
+    const BST = new BinarySearchTree();
+
+    // Insert nodes
+    BST.insert(15);
+    BST.insert(25);
+    BST.insert(10);
+    BST.insert(7);
+    BST.insert(22);
+    BST.insert(17);
+    BST.insert(13);
+    BST.insert(5);
+    BST.insert(9);
+    BST.insert(27);
+
+    let root = BST.getRootNode();
+
+    BST.inorder(root)
+    BST.preorder(root)
+    BST.postorder(root)
+    BST.remove(10)
+
+    root = BST.getRootNode();
+    BST.inorder(root)
+    BST.preorder(root)
+    BST.postorder(root)
 }
